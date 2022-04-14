@@ -26,6 +26,7 @@ export const useCrud = (service) => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [formLoading, setFormLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState({});
   const [error, setError] = useState(null);
 
   const getItems = useCallback(async () => {
@@ -67,14 +68,18 @@ export const useCrud = (service) => {
   }, [service]);
 
   const deleteItem = useCallback(async (model, payload) => {
-    setLoading(true);
+    setDeleteLoading({
+      model: true
+    });
     try {
       await service.delete(model, payload);
       setItems((items) => items.filter((item) => item.id !== model));
     } catch (error) {
       setError(error);
     } finally {
-      setLoading(false);
+      setDeleteLoading({
+        model: false
+      });
     }
   }, [service]);
 
@@ -82,6 +87,7 @@ export const useCrud = (service) => {
     items,
     loading,
     formLoading,
+    deleteLoading,
     error,
     getItems,
     addItem,

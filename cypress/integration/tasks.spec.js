@@ -1,16 +1,17 @@
 /* eslint-disable */
 describe("Tasks", () => {
   beforeEach(() => {
+  });
+
+  it("should fetch tasks", () => {
     cy.intercept("GET", "https://jsonplaceholder.typicode.com/todos").as(
       "fetchTasks"
     );
     cy.visit("/");
-  });
-
-  it("should fetch tasks", () => {
     cy.wait("@fetchTasks").then(({ response }) => {
       expect(response.statusCode).to.eq(200);
       expect(response.body).to.be.an("array");
+      cy.screenshot('tasks fetched');
     });
   });
 
@@ -30,31 +31,27 @@ describe("Tasks", () => {
         .find(".task-card__title")
         .invoke("text")
         .should("eq", TASK_MESSAGE);
+      cy.screenshot('task added');
     });
   });
 
   it("should remove a task", () => {
+    const DELETED_TASK_MESSAGE = 'Delectus aut autem'
     cy.intercept("DELETE", "https://jsonplaceholder.typicode.com/todos/*").as(
       "deleteTask"
     );
-    cy.get(".task-card")
-      .first()
-      .find(".task-card__title")
-      .invoke("text")
-      .then((text) => {
-        cy.get(".task-card")
-          .first()
-          .find('[data-testid="delete-task"]')
-          .click();
-        cy.wait("@deleteTask").then(({ response }) => {
-          expect(response.statusCode).to.eq(200);
-          cy.get(".task-card")
-            .first()
-            .find(".task-card__title")
-            .invoke("text")
-            .should("not.eq", text);
-        });
-      });
+    cy.get(".task-card").contains(DELETED_TASK_MESSAGE)
+      .find('[data-testid="delete-task"]')
+      .click();
+    cy.wait("@deleteTask").then(({ response }) => {
+      expect(response.statusCode).to.eq(200);
+      cy.get(".task-card")
+        .first()
+        .find(".task-card__title")
+        .invoke("text")
+        .should("not.eq", DELETED_TASK_MESSAGE);
+      cy.screenshot('task deleted');
+    });
   });
 
   it("should complete a task", () => {
@@ -72,6 +69,7 @@ describe("Tasks", () => {
         .should("have.css", "text-decoration", "line-through solid rgb(153, 153, 153)")
         .and("have.css", "color", "rgb(153, 153, 153)")
         .and("have.css", "cursor", "not-allowed");
+      cy.screenshot('task completed');
     });
   });
 });

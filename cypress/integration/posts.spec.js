@@ -11,6 +11,7 @@ describe("Tasks", () => {
     cy.wait("@fetchPosts").then(({ response }) => {
       expect(response.statusCode).to.eq(200);
       expect(response.body).to.be.an("array");
+      cy.screenshot('posts');
     });
   });
 });

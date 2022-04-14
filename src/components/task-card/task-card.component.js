@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleCheck,
   faCircleMinus,
+  faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 import { useMemo } from "react";
 import "./task-card.style.css";
@@ -20,10 +21,10 @@ import { stringFirstCharUpperCase } from "../../utils/string-first-char-upper-ca
  * const handleComplete = () => {}
  * const handleDelete = () => {}
  * return (
- *   <TaskCard item={item} onComplete={handleComplete} onDelete={handleDelete} />
+ *   <TaskCard item={item} onComplete={handleComplete} onDelete={handleDelete} progressDelete />
  * )
  */
-export const TaskCard = ({ item, onComplete, onDelete }) => {
+export const TaskCard = ({ item, onComplete, onDelete, progressDelete }) => {
   
   const formattedTitle = useMemo(() => {
     return stringFirstCharUpperCase(item.title);
@@ -48,12 +49,12 @@ export const TaskCard = ({ item, onComplete, onDelete }) => {
             color="green"
             data-testid="complete-task"
           />}
-          <FontAwesomeIcon
+          { progressDelete ? <FontAwesomeIcon className="animate-spinner" icon={faSpinner} /> : <FontAwesomeIcon
             icon={faCircleMinus}
             onClick={onDelete.bind(null, item)}
             color="red"
             data-testid="delete-task"
-          />
+          />}
         </span>
       </h1>
     </div>
@@ -67,4 +68,5 @@ TaskCard.propTypes = {
   }).isRequired,
   onComplete: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
+  progressDelete: PropTypes.bool,
 };

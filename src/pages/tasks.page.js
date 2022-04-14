@@ -14,7 +14,8 @@ export const Tasks = () => {
     deleteItem: deleteTask,
     updateItem: updateTask,
     loading: tasksLoading,
-    formLoading: taskFormLoading
+    formLoading: taskFormLoading,
+    deleteLoading: taskDeleteLoading,
   } = useCrud(tasksService);
   const newTaskRef = useRef();
 
@@ -61,6 +62,7 @@ export const Tasks = () => {
               key={task.id}
               onComplete={handleComplete}
               onDelete={handleDelete}
+              progressDelete={taskDeleteLoading[task.id]}
             />
           ))}
     </div>
