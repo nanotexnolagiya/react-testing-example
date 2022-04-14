@@ -1,0 +1,35 @@
+.post-card {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  border-bottom: 1px solid #333333;
+}
+
+.post-card__title {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: left;
+  color: #111111;
+}
+.post-card__body {
+  text-align: left;
+  font-size: 16px;
+}
+
+.post-card__actions {
+  display: inline-flex;
+  gap: 10px;
+}
+
+.post-card__actions svg {
+  cursor: pointer;
+}
+
+.post-card__body {
+  font-size: 16px;
+  font-weight: 400;
+  color: #555555;
+}

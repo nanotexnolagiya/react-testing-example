@@ -1,0 +1,24 @@
+.task-card {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-bottom: 1px solid #333333;
+}
+
+.task-card__title {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #000000;
+}
+
+.task-card__actions {
+  display: inline-flex;
+  gap: 10px;
+}
+
+.task-card__actions svg {
+  cursor: pointer;
+}

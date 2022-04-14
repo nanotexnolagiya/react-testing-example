@@ -1,0 +1,26 @@
+.textarea-wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.textarea-wrap textarea {
+  outline: none;
+  width: 100%;
+  border: 1px solid #111111;
+  color: #111111;
+  border-radius: 5px;
+  padding: 10px 12px;
+  font-size: 16px;
+  min-height: 140px;
+  resize: none;
+  background-color: transparent;
+}
+
+.textarea-wrap label {
+  margin-bottom: 6px;
+  color: #111111;
+  font-size: 16px;
+  text-align: left;
+}
